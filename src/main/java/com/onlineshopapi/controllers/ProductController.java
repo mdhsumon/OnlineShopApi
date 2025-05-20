@@ -1,12 +1,31 @@
 package com.onlineshopapi.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.onlineshopapi.Response;
+import com.onlineshopapi.entities.ProductEntity;
+import com.onlineshopapi.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
-    @GetMapping("/hi")
-    public String index() {
-        return "Hello World";
+    @Autowired
+    private ProductService productService;
+
+    @PostMapping()
+    public Response create(@RequestBody ProductEntity product) {
+        return productService.create(product);
+    }
+
+    @GetMapping()
+    public Response getAll() {
+        return productService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Response getById(@PathVariable Integer id) {
+        return productService.getById(id);
     }
 }
