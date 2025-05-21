@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -43,6 +44,62 @@ public class ProductService {
         response.setCode("200");
         response.setSuccess(true);
         response.setData(products);
+        return response;
+    }
+
+    public Response updateById(Integer id, ProductEntity requestBody) {
+        Response response = new Response();
+        Optional<ProductEntity> currentProduct = productRepository.findById(id);
+
+        if(currentProduct.isEmpty()) {
+            response.setCode("404");
+            response.setMessage("Product not found");
+            response.setSuccess(false);
+            return response;
+        }
+
+        ProductEntity product = currentProduct.get();
+
+        if(requestBody.getName() != null) {
+            product.setName(requestBody.getName());
+        }
+        if(requestBody.getPrice() != null) {
+            product.setPrice(requestBody.getPrice());
+        }
+        if(requestBody.getDescription() != null) {
+            product.setDescription(requestBody.getDescription());
+        }
+        if(requestBody.getImage() != null) {
+            product.setImage(requestBody.getImage());
+        }
+        if(requestBody.getCategoryId() != null) {
+            product.setCategoryId(requestBody.getCategoryId());
+        }
+        if(requestBody.getStatus() != null) {
+            product.setCategoryId(requestBody.getCategoryId());
+        }
+        productRepository.save(product);
+        response.setCode("200");
+        response.setSuccess(true);
+        response.setMessage("Product updated successfully");
+        return response;
+    }
+
+    public Response deleteById(Integer id) {
+        Response response = new Response();
+        Optional<ProductEntity> product = productRepository.findById(id);
+
+        if(product.isEmpty()) {
+            response.setCode("404");
+            response.setMessage("Product not found");
+            response.setSuccess(false);
+            return response;
+        }
+
+        productRepository.deleteById(id);
+        response.setCode("200");
+        response.setSuccess(true);
+        response.setMessage("Product deleted successfully");
         return response;
     }
 }
