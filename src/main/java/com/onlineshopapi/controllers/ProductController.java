@@ -6,8 +6,6 @@ import com.onlineshopapi.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -35,7 +33,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public Response update(@PathVariable Integer id) {
+    public Response delete(@PathVariable Integer id) {
         return productService.deleteById(id);
     }
 }
