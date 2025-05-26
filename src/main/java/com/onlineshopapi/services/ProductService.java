@@ -18,31 +18,40 @@ public class ProductService {
         Response response = new Response();
         if(product.getName() != null) {
             productRepository.save(product);
+            response.setSuccess(true);
             response.setCode("200");
             response.setMessage("Product created successfully");
-            response.setSuccess(true);
         }
         else {
+            response.setSuccess(false);
             response.setCode("400");
             response.setMessage("Name required");
-            response.setSuccess(false);
         }
         return response;
     }
 
-    public Response getById(Integer id) {
+    public Response getById(int id) {
         Response response = new Response();
-        response.setCode("200");
-        response.setSuccess(true);
-        response.setData(productRepository.findById(id));
+        Optional<ProductEntity> product = productRepository.findById(id);
+        if(product.isPresent()) {
+            response.setSuccess(true);
+            response.setCode("200");
+            response.setMessage("Product found");
+            response.setData(product.get());
+        }
+        else {
+            response.setSuccess(false);
+            response.setCode("404");
+            response.setMessage("Product not found");
+        }
         return response;
     }
 
-    public Response getAll() {
+    public Response getList() {
         Response response = new Response();
         List<ProductEntity> products = productRepository.findAll();
-        response.setCode("200");
         response.setSuccess(true);
+        response.setCode("200");
         response.setData(products);
         return response;
     }
@@ -79,8 +88,8 @@ public class ProductService {
             product.setCategoryId(requestBody.getCategoryId());
         }
         productRepository.save(product);
-        response.setCode("200");
         response.setSuccess(true);
+        response.setCode("200");
         response.setMessage("Product updated successfully");
         return response;
     }
@@ -90,15 +99,15 @@ public class ProductService {
         Optional<ProductEntity> product = productRepository.findById(id);
 
         if(product.isEmpty()) {
+            response.setSuccess(false);
             response.setCode("404");
             response.setMessage("Product not found");
-            response.setSuccess(false);
             return response;
         }
 
         productRepository.deleteById(id);
-        response.setCode("200");
         response.setSuccess(true);
+        response.setCode("200");
         response.setMessage("Product deleted successfully");
         return response;
     }

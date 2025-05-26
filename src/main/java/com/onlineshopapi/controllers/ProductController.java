@@ -18,8 +18,8 @@ public class ProductController {
     }
 
     @GetMapping()
-    public Response getAll() {
-        return productService.getAll();
+    public Response getList() {
+        return productService.getList();
     }
 
     @GetMapping("/{id}")
