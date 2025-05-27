@@ -16,7 +16,7 @@ public class UserService {
 
     public Response create(UserEntity user) {
         Response response = new Response();
-        if(user.getName() != null) {
+        if(user.getName() != null && user.getPhone() != null) {
             userRepository.save(user);
             response.setSuccess(true);
             response.setCode("200");

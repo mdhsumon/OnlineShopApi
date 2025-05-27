@@ -17,6 +17,7 @@ public class UserEntity {
     private String name;
     private String image;
     private Integer status;
+    private String phone;
 
     @CreationTimestamp
     private String createdAt;
