@@ -13,14 +13,14 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @PostMapping()
+    @PostMapping({"", "/"})
     public Response create(@RequestBody CategoryEntity category) {
         return categoryService.create(category);
     }
 
-    @GetMapping()
-    public Response getAll() {
-        return categoryService.getAll();
+    @GetMapping({"", "/"})
+    public Response getList() {
+        return categoryService.getList();
     }
 
     @GetMapping("/{id}")

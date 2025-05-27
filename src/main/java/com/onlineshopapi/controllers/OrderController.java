@@ -12,12 +12,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping()
+    @PostMapping({"", "/"})
     public Response create(@RequestBody OrderEntity order) {
         return orderService.create(order);
     }
 
-    @GetMapping()
+    @GetMapping({"", "/"})
     public Response getList() {
         return orderService.getList();
     }

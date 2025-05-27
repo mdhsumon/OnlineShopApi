@@ -38,12 +38,12 @@ public class CategoryService {
         return response;
     }
 
-    public Response getAll() {
+    public Response getList() {
         Response response = new Response();
-        List<CategoryEntity> categorys = categoryRepository.findAll();
+        List<CategoryEntity> category = categoryRepository.findAll();
         response.setCode("200");
         response.setSuccess(true);
-        response.setData(categorys);
+        response.setData(category);
         return response;
     }
 

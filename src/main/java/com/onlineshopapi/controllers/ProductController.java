@@ -12,12 +12,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping()
+    @PostMapping({"", "/"})
     public Response create(@RequestBody ProductEntity product) {
         return productService.create(product);
     }
 
-    @GetMapping()
+    @GetMapping({"", "/"})
     public Response getList() {
         return productService.getList();
     }

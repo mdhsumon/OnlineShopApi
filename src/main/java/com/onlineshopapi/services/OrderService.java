@@ -40,10 +40,10 @@ public class OrderService {
 
     public Response getList() {
         Response response = new Response();
-        List<OrderEntity> orders = orderRepository.findAll();
+        List<OrderEntity> order = orderRepository.findAll();
         response.setCode("200");
         response.setSuccess(true);
-        response.setData(orders);
+        response.setData(order);
         return response;
     }
 
