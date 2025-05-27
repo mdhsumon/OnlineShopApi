@@ -16,15 +16,16 @@ public class OrderService {
 
     public Response create(OrderEntity order) {
         Response response = new Response();
-        if(order.getCustomerPhone() != null && order.getCustomerAddress() != null) {
-            orderRepository.save(order);
+        if(order.getProductId() != null && order.getCustomerPhone() != null && order.getCustomerAddress() != null) {
+            OrderEntity newOrder = orderRepository.save(order);
             response.setCode("200");
             response.setMessage("Order created successfully");
             response.setSuccess(true);
+            response.setData(newOrder);
         }
         else {
             response.setCode("400");
-            response.setMessage("Customer phone and address required");
+            response.setMessage("Customer phone, address and productId are required");
             response.setSuccess(false);
         }
         return response;
@@ -60,6 +61,21 @@ public class OrderService {
 
         OrderEntity order = currentOrder.get();
 
+        if(requestBody.getProductId() != null) {
+            order.setProductId(requestBody.getProductId());
+        }
+        if(requestBody.getCustomerName() != null) {
+            order.setCustomerName(requestBody.getCustomerName());
+        }
+        if(requestBody.getCustomerEmail() != null) {
+            order.setCustomerEmail(requestBody.getCustomerEmail());
+        }
+        if(requestBody.getCustomerPhone() != null) {
+            order.setCustomerPhone(requestBody.getCustomerPhone());
+        }
+        if(requestBody.getCustomerAddress() != null) {
+            order.setCustomerAddress(requestBody.getCustomerAddress());
+        }
         orderRepository.save(order);
         response.setCode("200");
         response.setSuccess(true);

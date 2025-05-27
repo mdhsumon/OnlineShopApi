@@ -16,7 +16,7 @@ public class ProductService {
 
     public Response create(ProductEntity product) {
         Response response = new Response();
-        if(product.getName() != null) {
+        if(product.getName() != null && product.getCategoryId() != null && product.getPrice() != null) {
             productRepository.save(product);
             response.setSuccess(true);
             response.setCode("200");
@@ -25,7 +25,7 @@ public class ProductService {
         else {
             response.setSuccess(false);
             response.setCode("400");
-            response.setMessage("Name required");
+            response.setMessage("Required fields are: name, categoryId and price");
         }
         return response;
     }
@@ -53,6 +53,23 @@ public class ProductService {
         response.setSuccess(true);
         response.setCode("200");
         response.setData(products);
+        return response;
+    }
+
+    public Response getListByCategory(Integer id) {
+        Response response = new Response();
+        List<ProductEntity> products = productRepository.findAllByCategoryId(id);
+        if(!products.isEmpty()) {
+            response.setSuccess(true);
+            response.setCode("200");
+            response.setMessage("Product found");
+            response.setData(products);
+        }
+        else {
+            response.setSuccess(false);
+            response.setCode("404");
+            response.setMessage("Product not found");
+        }
         return response;
     }
 

@@ -14,11 +14,12 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Integer productId;
     private String customerName;
     private String customerEmail;
     private String customerPhone;
     private String customerAddress;
-    private String paymentMethod;
+    private Integer paymentMethod;
     private Integer status;
     @CreationTimestamp
     private String createdAt;
