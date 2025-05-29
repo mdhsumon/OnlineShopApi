@@ -16,7 +16,7 @@ public class UserService {
 
     public Response create(UserEntity user) {
         Response response = new Response();
-        if(user.getName() != null && user.getPhone() != null) {
+        if(user.getUsername() != null && user.getPassword() != null) {
             userRepository.save(user);
             response.setSuccess(true);
             response.setCode("200");
@@ -25,7 +25,7 @@ public class UserService {
         else {
             response.setSuccess(false);
             response.setCode("400");
-            response.setMessage("Name required");
+            response.setMessage("Username and password are required");
         }
         return response;
     }
