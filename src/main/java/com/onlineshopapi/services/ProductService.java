@@ -102,7 +102,7 @@ public class ProductService {
             product.setCategoryId(requestBody.getCategoryId());
         }
         if(requestBody.getStatus() != null) {
-            product.setCategoryId(requestBody.getCategoryId());
+            product.setStatus(requestBody.getStatus());
         }
         productRepository.save(product);
         response.setSuccess(true);

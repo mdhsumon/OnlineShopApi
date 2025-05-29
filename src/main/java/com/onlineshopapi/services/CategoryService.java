@@ -66,6 +66,9 @@ public class CategoryService {
         if(requestBody.getDescription() != null) {
             category.setDescription(requestBody.getDescription());
         }
+        if(requestBody.getStatus() != null) {
+            category.setStatus(requestBody.getStatus());
+        }
 
         categoryRepository.save(category);
         response.setCode("200");
